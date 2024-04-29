@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+    app:
+        build:
+            target: $APP_ENV
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '${APP_PORT:-8000}:8000'
+        volumes:
+            - '.:/app'
+        restart: always
