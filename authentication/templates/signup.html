@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Signup</title>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %} ^ as p tags {% endcomment %}
+        <input type="submit" />
+    </form>
+
+    {% if form.errors %}
+        <div>
+            {{ form.errors.title.as_text }}
+        </div>
+    {% endif %}
+{% endblock %}
