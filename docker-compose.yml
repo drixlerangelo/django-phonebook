@@ -2,7 +2,7 @@ version: '3.9'
 services:
     app:
         build:
-            target: $APP_ENV
+            target: ${APP_ENV:-production}
             context: .
             dockerfile: Dockerfile
         ports:

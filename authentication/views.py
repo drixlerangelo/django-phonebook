@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from .forms import AccountCreationForm
 
 class LoginInterfaceView(LoginView):
     template_name = 'login.html'
@@ -15,7 +16,7 @@ class LogoutInterfaceView(LogoutView):
     template_name = 'logout.html'
 
 class SignupView(CreateView):
-    form_class = UserCreationForm
+    form_class = AccountCreationForm
     template_name = 'signup.html'
     success_url = '/diaries'
 
