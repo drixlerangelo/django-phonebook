@@ -9,4 +9,31 @@ services:
             - '${APP_PORT:-8000}:8000'
         volumes:
             - '.:/app'
+        networks:
+            - net
         restart: always
+    db:
+        container_name: phonebook-postgres-db
+        image: 'postgres:16'
+        # ports:
+        #     - '${FORWARD_DB_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: '${DB_PASSWORD:-secret}'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+        volumes:
+            - 'db_storage:/var/lib/postgresql/data'
+        networks:
+            - net
+        healthcheck:
+            test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+            retries: 3
+            timeout: 5s
+        restart: always
+networks:
+    net:
+        driver: bridge
+volumes:
+    db_storage:
+        driver: local
