@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'oauth2_provider',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.mfa',
+
     'authentication',
 ]
 
@@ -54,6 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -63,6 +71,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'static/templates',
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -71,6 +81,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -141,3 +154,44 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'authentication.Account'
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+# Specifies the adapter class to use, allowing you to alter certain default behaviour.
+MFA_ADAPTER = "allauth.mfa.adapter.DefaultMFAAdapter"
+
+# Used to override forms. Defaults to:
+MFA_FORMS = {
+    'authenticate': 'allauth.mfa.forms.AuthenticateForm',
+    'reauthenticate': 'allauth.mfa.forms.AuthenticateForm',
+    'activate_totp': 'allauth.mfa.forms.ActivateTOTPForm',
+    'deactivate_totp': 'allauth.mfa.forms.DeactivateTOTPForm',
+}
+
+MFA_RECOVERY_CODE_COUNT = 10
+# The number of recovery codes.
+
+MFA_TOTP_PERIOD = 30
+# The period that a TOTP code will be valid for, in seconds.
+
+MFA_TOTP_DIGITS = 6
+# The number of digits for TOTP codes.
+
+MFA_TOTP_ISSUER  = 'Django Phonebook'
+
+SOCIALACCOUNT_ENABLED = False
+
+ACCOUNT_FORMS = {
+    'signup': 'authentication.forms.AccountCreationForm'
+}
+
+# to avoid sending
+ACCOUNT_EMAIL_VERIFICATION = 'none'

@@ -2,21 +2,24 @@ version: '3.9'
 services:
     app:
         build:
-            target: ${APP_ENV:-production}
+            target: ${DJANGO_ENV:-production}
             context: .
             dockerfile: Dockerfile
+            args:
+                - DJANGO_ENV=${DJANGO_ENV:-production}
         ports:
-            - '${APP_PORT:-8000}:8000'
+            - '${APP_PORT:-8000}:80'
         volumes:
             - '.:/app'
         networks:
             - net
+        command: python -Wd manage.py runserver 0.0.0.0:80
         restart: always
     db:
         container_name: phonebook-postgres-db
         image: 'postgres:16'
-        # ports:
-        #     - '${FORWARD_DB_PORT:-5432}:5432'
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
             PGPASSWORD: '${DB_PASSWORD:-secret}'
             POSTGRES_DB: '${DB_DATABASE}'
