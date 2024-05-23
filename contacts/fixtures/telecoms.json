@@ -1,0 +1,51 @@
+[
+    {
+        "model": "contacts.Telecom",
+        "pk": 1,
+        "fields": {
+            "name": "Smart Communications"
+        }
+    },
+    {
+        "model": "contacts.Telecom",
+        "pk": 2,
+        "fields": {
+            "name": "Globe Telecom"
+        }
+    },
+    {
+        "model": "contacts.Telecom",
+        "pk": 3,
+        "fields": {
+            "name": "Dito Telecommunity"
+        }
+    },
+    {
+        "model": "contacts.Telecom",
+        "pk": 4,
+        "fields": {
+            "name": "PLDT"
+        }
+    },
+    {
+        "model": "contacts.Telecom",
+        "pk": 5,
+        "fields": {
+            "name": "ABS-CBN Convergence (Globe Telecom)"
+        }
+    },
+    {
+        "model": "contacts.Telecom",
+        "pk": 6,
+        "fields": {
+            "name": "Eastern Communications (PLDT-Globe Telecom)"
+        }
+    },
+    {
+        "model": "contacts.Telecom",
+        "pk": 7,
+        "fields": {
+            "name": "Bayan Telecommunications (Globe Telecom)"
+        }
+    }
+]

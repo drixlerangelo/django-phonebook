@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.mfa',
 
+    'rest_framework',
+
     'authentication',
+    'contacts',
 ]
 
 MIDDLEWARE = [

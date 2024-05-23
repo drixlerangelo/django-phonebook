@@ -1,0 +1,618 @@
+[
+    {
+        "model": "contacts.AreaCode",
+        "pk": 1,
+        "fields": {
+            "telecom": 1,
+            "code": 813
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 2,
+        "fields": {
+            "telecom": 2,
+            "code": 817
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 3,
+        "fields": {
+            "telecom": 3,
+            "code": 895
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 4,
+        "fields": {
+            "telecom": 3,
+            "code": 896
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 5,
+        "fields": {
+            "telecom": 3,
+            "code": 897
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 6,
+        "fields": {
+            "telecom": 3,
+            "code": 898
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 7,
+        "fields": {
+            "telecom": 2,
+            "code": 905
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 8,
+        "fields": {
+            "telecom": 2,
+            "code": 906
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 9,
+        "fields": {
+            "telecom": 1,
+            "code": 907
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 10,
+        "fields": {
+            "telecom": 1,
+            "code": 908
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 11,
+        "fields": {
+            "telecom": 1,
+            "code": 909
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 12,
+        "fields": {
+            "telecom": 1,
+            "code": 910
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 13,
+        "fields": {
+            "telecom": 1,
+            "code": 912
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 14,
+        "fields": {
+            "telecom": 2,
+            "code": 915
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 15,
+        "fields": {
+            "telecom": 2,
+            "code": 916
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 16,
+        "fields": {
+            "telecom": 2,
+            "code": 917
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 17,
+        "fields": {
+            "telecom": 2,
+            "code": 918
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 18,
+        "fields": {
+            "telecom": 2,
+            "code": 919
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 19,
+        "fields": {
+            "telecom": 1,
+            "code": 920
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 20,
+        "fields": {
+            "telecom": 1,
+            "code": 921
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 21,
+        "fields": {
+            "telecom": 1,
+            "code": 922
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 22,
+        "fields": {
+            "telecom": 1,
+            "code": 923
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 23,
+        "fields": {
+            "telecom": 1,
+            "code": 925
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 24,
+        "fields": {
+            "telecom": 2,
+            "code": 926
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 25,
+        "fields": {
+            "telecom": 2,
+            "code": 927
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 26,
+        "fields": {
+            "telecom": 1,
+            "code": 928
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 27,
+        "fields": {
+            "telecom": 1,
+            "code": 929
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 28,
+        "fields": {
+            "telecom": 1,
+            "code": 930
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 29,
+        "fields": {
+            "telecom": 1,
+            "code": 931
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 30,
+        "fields": {
+            "telecom": 1,
+            "code": 932
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 31,
+        "fields": {
+            "telecom": 1,
+            "code": 933
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 32,
+        "fields": {
+            "telecom": 2,
+            "code": 935
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 33,
+        "fields": {
+            "telecom": 2,
+            "code": 936
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 34,
+        "fields": {
+            "telecom": 2,
+            "code": 937
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 35,
+        "fields": {
+            "telecom": 1,
+            "code": 938
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 36,
+        "fields": {
+            "telecom": 1,
+            "code": 939
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 37,
+        "fields": {
+            "telecom": 1,
+            "code": 942
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 38,
+        "fields": {
+            "telecom": 1,
+            "code": 943
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 39,
+        "fields": {
+            "telecom": 2,
+            "code": 945
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 40,
+        "fields": {
+            "telecom": 1,
+            "code": 946
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 41,
+        "fields": {
+            "telecom": 1,
+            "code": 947
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 42,
+        "fields": {
+            "telecom": 1,
+            "code": 948
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 43,
+        "fields": {
+            "telecom": 1,
+            "code": 949
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 44,
+        "fields": {
+            "telecom": 1,
+            "code": 950
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 45,
+        "fields": {
+            "telecom": 1,
+            "code": 951
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 46,
+        "fields": {
+            "telecom": 2,
+            "code": 953
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 47,
+        "fields": {
+            "telecom": 2,
+            "code": 954
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 48,
+        "fields": {
+            "telecom": 2,
+            "code": 955
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 49,
+        "fields": {
+            "telecom": 2,
+            "code": 956
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 50,
+        "fields": {
+            "telecom": 2,
+            "code": 957
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 51,
+        "fields": {
+            "telecom": 1,
+            "code": 960
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 52,
+        "fields": {
+            "telecom": 1,
+            "code": 961
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 53,
+        "fields": {
+            "telecom": 1,
+            "code": 962
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 54,
+        "fields": {
+            "telecom": 1,
+            "code": 963
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 55,
+        "fields": {
+            "telecom": 1,
+            "code": 964
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 56,
+        "fields": {
+            "telecom": 2,
+            "code": 965
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 57,
+        "fields": {
+            "telecom": 2,
+            "code": 966
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 58,
+        "fields": {
+            "telecom": 2,
+            "code": 967
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 59,
+        "fields": {
+            "telecom": 1,
+            "code": 968
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 60,
+        "fields": {
+            "telecom": 1,
+            "code": 969
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 61,
+        "fields": {
+            "telecom": 1,
+            "code": 970
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 62,
+        "fields": {
+            "telecom": 1,
+            "code": 973
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 63,
+        "fields": {
+            "telecom": 1,
+            "code": 974
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 64,
+        "fields": {
+            "telecom": 2,
+            "code": 975
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 65,
+        "fields": {
+            "telecom": 2,
+            "code": 976
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 66,
+        "fields": {
+            "telecom": 2,
+            "code": 977
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 67,
+        "fields": {
+            "telecom": 1,
+            "code": 981
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 68,
+        "fields": {
+            "telecom": 1,
+            "code": 985
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 69,
+        "fields": {
+            "telecom": 3,
+            "code": 991
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 70,
+        "fields": {
+            "telecom": 3,
+            "code": 992
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 71,
+        "fields": {
+            "telecom": 3,
+            "code": 993
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 72,
+        "fields": {
+            "telecom": 3,
+            "code": 994
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 73,
+        "fields": {
+            "telecom": 2,
+            "code": 995
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 74,
+        "fields": {
+            "telecom": 2,
+            "code": 996
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 75,
+        "fields": {
+            "telecom": 2,
+            "code": 997
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 76,
+        "fields": {
+            "telecom": 1,
+            "code": 998
+        }
+    },
+    {
+        "model": "contacts.AreaCode",
+        "pk": 77,
+        "fields": {
+            "telecom": 1,
+            "code": 999
+        }
+    }
+]
