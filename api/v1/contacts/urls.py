@@ -1,17 +1,12 @@
-from django.urls import path
-from .views import AreaCodeListView, ContactListCreateView, ContactRetrieveUpdateDestroyView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import AreaCodeListView, ContactViewSet
+
+router = DefaultRouter()
+router.register(r'contacts', ContactViewSet)
 
 urlpatterns = [
-    path(
-        'contacts/',
-        ContactListCreateView.as_view(),
-        name='contact-list-create'
-    ),
-    path(
-        'contacts/<uuid:uuid>/',
-        ContactRetrieveUpdateDestroyView.as_view(),
-        name='contact-retrieve-update-destroy'
-    ),
+    path('', include(router.urls)),
 
     path(
         'area-codes/',

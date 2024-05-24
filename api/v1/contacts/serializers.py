@@ -8,7 +8,7 @@ class ContactSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'uuid']
 
     url = serializers.HyperlinkedIdentityField(
-        view_name='contact-retrieve-update-destroy',
+        view_name='contact-detail',
         lookup_field='uuid'
     )
 
