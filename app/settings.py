@@ -50,7 +50,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'api.v1',
+    'drf_spectacular',
+
     'api.v1.accounts',
     'api.v1.contacts',
 ]
@@ -101,17 +102,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DB_DATABASE'),
+        'USER': os.getenv('DB_USERNAME'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': 5432,
     },
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': os.getenv('DB_DATABASE'),
-    #     'USER': os.getenv('DB_USERNAME'),
-    #     'PASSWORD': os.getenv('DB_PASSWORD'),
-    #     'HOST': os.getenv('DB_HOST'),
-    #     'PORT': 5432,
-    # },
 }
 
 
@@ -159,7 +156,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/api/v1/'
+LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
@@ -206,4 +203,12 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%s',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Django Phonebook API',
+    'DESCRIPTION': 'A phonebook created using Django.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }

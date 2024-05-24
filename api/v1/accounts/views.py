@@ -8,5 +8,5 @@ def index(request: HttpRequest):
         if not authenticators:
             return redirect('mfa_activate_totp')
         else:
-            return render(request, 'home_index.html')
+            return redirect('swagger-ui')
     return redirect('account_login')
