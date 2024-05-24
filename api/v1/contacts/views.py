@@ -3,7 +3,7 @@ from .models import AreaCode, Contact
 from .serializers import AreaCodeSerializer, ContactSerializer
 
 class ContactListCreateView(generics.ListCreateAPIView):
-    queryset = Contact.objects.all()
+    queryset = Contact.objects.all().order_by('name')
     serializer_class = ContactSerializer
     lookup_field = 'uuid'
     permission_classes = [permissions.IsAuthenticated]

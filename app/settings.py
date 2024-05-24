@@ -50,7 +50,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'authentication',
+    'api.v1',
+    'api.v1.accounts',
     'api.v1.contacts',
 ]
 
@@ -158,9 +159,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/api/v1/'
 
-AUTH_USER_MODEL = 'authentication.Account'
+AUTH_USER_MODEL = 'accounts.Account'
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -192,7 +193,7 @@ MFA_TOTP_PERIOD = 30
 MFA_TOTP_DIGITS = 6
 # The number of digits for TOTP codes.
 
-MFA_TOTP_ISSUER  = 'Django Phonebook'
+MFA_TOTP_ISSUER  = 'Django'
 
 SOCIALACCOUNT_ENABLED = False
 

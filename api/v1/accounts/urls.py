@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='mfa_check.index'),
+    path('', views.index, name='accounts.index'),
 ]

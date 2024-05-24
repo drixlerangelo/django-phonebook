@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.core.validators import EmailValidator
 
-from authentication.models import Account
+from api.v1.accounts.models import Account
 
 class Telecom(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)

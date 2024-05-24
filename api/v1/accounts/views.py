@@ -1,13 +1,5 @@
-from typing import Any
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
-from django.views.generic import TemplateView
-from datetime import datetime
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import UserCreationForm
-from .forms import AccountCreationForm
+from django.http import HttpRequest
 from allauth.mfa.models import Authenticator
 
 def index(request: HttpRequest):
