@@ -23,4 +23,10 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('', include('authentication.urls')),
+
+    path('api/', include([
+        path('v1/', include([
+            path('', include('api.v1.contacts.urls')),
+        ])),
+    ])),
 ]

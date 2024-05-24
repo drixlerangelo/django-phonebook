@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j=7m!yy&h!in5vw83!5yq4-5mksls8&zuthv=1y$(mns7l)j31'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv('APP_DEBUG'))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = str(os.getenv('APP_HOSTS')).split(',')
 
 
 # Application definition
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'authentication',
-    'contacts',
+    'api.v1.contacts',
 ]
 
 MIDDLEWARE = [
@@ -100,13 +100,17 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DB_DATABASE'),
-        'USER': os.getenv('DB_USERNAME'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': os.getenv('DB_DATABASE'),
+    #     'USER': os.getenv('DB_USERNAME'),
+    #     'PASSWORD': os.getenv('DB_PASSWORD'),
+    #     'HOST': os.getenv('DB_HOST'),
+    #     'PORT': 5432,
+    # },
 }
 
 
@@ -198,3 +202,7 @@ ACCOUNT_FORMS = {
 
 # to avoid sending
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': '%s',
+}

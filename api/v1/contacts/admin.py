@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from contacts.models import AreaCode, Contact, Telecom
+from .models import AreaCode, Contact, Telecom
 
 # Register your models here.
 @admin.register(Contact)

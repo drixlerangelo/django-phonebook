@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.core.validators import EmailValidator
 
-# Create your models here.
+from authentication.models import Account
 
 class Telecom(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)
@@ -32,6 +32,7 @@ class Contact(models.Model):
         validators=[EmailValidator()],
     )
     address = models.TextField()
+    account = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name
