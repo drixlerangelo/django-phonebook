@@ -14,6 +14,8 @@ services:
         networks:
             - net
         command: python -Wd manage.py runserver 0.0.0.0:80
+        environment:
+            - PYTHONDONTWRITEBYTECODE=1
         restart: always
     db:
         container_name: phonebook-postgres-db

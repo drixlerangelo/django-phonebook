@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j=7m!yy&h!in5vw83!5yq4-5mksls8&zuthv=1y$(mns7l)j31'
+SECRET_KEY = os.getenv('APP_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('APP_DEBUG'))
@@ -79,7 +79,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'static/templates',
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
@@ -152,7 +151,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'templates/static',
 ]
 
 # Default primary key field type
@@ -203,7 +202,7 @@ MFA_TOTP_ISSUER  = 'Django'
 SOCIALACCOUNT_ENABLED = False
 
 ACCOUNT_FORMS = {
-    'signup': 'authentication.forms.AccountCreationForm'
+    'signup': 'api.v1.accounts.forms.AccountCreationForm',
 }
 
 # to avoid sending

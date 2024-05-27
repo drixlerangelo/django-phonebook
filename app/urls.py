@@ -17,16 +17,51 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+import oauth2_provider.views as oauth2_views
+from app import settings
+from allauth.account import views
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+# App views
+urlpatterns = []
 
-    path('accounts/', include('allauth.urls')),
-    path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    path('swagger/', SpectacularSwaggerView.as_view(), name='swagger-ui'),
-    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+if settings.DEBUG:
+    urlpatterns += [
+        # Admin page
+        path('admin/', admin.site.urls),
+
+        # Download the schema
+        path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    ]
+
+urlpatterns += [
+    # Index page
     path('', include('api.v1.accounts.urls')),
 
+    # App homepage - Swagger
+    path('swagger/', SpectacularSwaggerView.as_view(), name='swagger-ui'),
+
+    # Auth endpoints
+    path('accounts/', include([
+        path('login/', views.login, name='account_login'),
+        path('logout/', views.logout, name='account_logout'),
+        path('signup/', views.signup, name='account_signup'),
+        path('reauthenticate/', views.reauthenticate, name='account_reauthenticate'),
+        path('mfa/', include('allauth.mfa.urls'))
+    ])),
+
+    # OAuth 2 endpoints:
+    # need to pass in a tuple of the endpoints as well as the app's name
+    # because the app_name attribute is not set in the included module
+    path('oauth/', include(
+        ([
+            path('authorize/', oauth2_views.AuthorizationView.as_view(), name='authorize'),
+            path('token/', oauth2_views.TokenView.as_view(), name='token'),
+            path('revoke-token/', oauth2_views.RevokeTokenView.as_view(), name='revoke-token'),
+        ], 'oauth2_provider'),
+        namespace='oauth2_provider'
+    )),
+
+    # API endpoints
     path('api/', include([
         path('v1/', include([
             path('', include('api.v1.contacts.urls')),

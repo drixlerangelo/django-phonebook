@@ -21,4 +21,3 @@ class AreaCodeListView(generics.ListAPIView):
     serializer_class = AreaCodeSerializer
     authentication_classes = [OAuth2Authentication, authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-
