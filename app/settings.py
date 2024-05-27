@@ -67,6 +67,10 @@ MIDDLEWARE = [
 
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
+
+    # If you use AuthenticationMiddleware, be sure it appears before OAuth2TokenMiddleware.
+    # AuthenticationMiddleware is NOT required for using django-oauth-toolkit.
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -166,6 +170,10 @@ AUTHENTICATION_BACKENDS = [
 
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
+
+    'oauth2_provider.backends.OAuth2Backend',
+    # Uncomment following if you want to access the admin
+    #'django.contrib.auth.backends.ModelBackend',
 ]
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -204,6 +212,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%s',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
 }
 
 SPECTACULAR_SETTINGS = {
