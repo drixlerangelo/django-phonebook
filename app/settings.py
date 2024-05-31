@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 
     'drf_spectacular',
 
+    'django_filters',
+
     'api.v1.accounts',
     'api.v1.contacts',
 ]

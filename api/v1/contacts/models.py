@@ -26,12 +26,13 @@ class AreaCode(models.Model):
 class Contact(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)
     name = models.CharField(max_length=255, blank=False)
-    area_code = models.ForeignKey(AreaCode, on_delete=models.DO_NOTHING)
-    number = models.CharField(max_length=8)
+    area_code = models.ForeignKey(AreaCode, on_delete=models.DO_NOTHING, blank=False)
+    number = models.CharField(max_length=8, blank=False)
     email = models.EmailField(
         validators=[EmailValidator()],
+        blank=False
     )
-    address = models.TextField()
+    address = models.TextField(blank=False)
     account = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
 
     def __str__(self):
