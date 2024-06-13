@@ -1,8 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, permissions, viewsets, authentication, filters, pagination
+from rest_framework import generics, permissions, viewsets, authentication, filters
 from .models import AreaCode, Contact
 from .serializers import AreaCodeSerializer, ContactSerializer
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
+from .mixins import ContactsPagination
 
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all().order_by('name')
@@ -11,9 +12,9 @@ class ContactViewSet(viewsets.ModelViewSet):
     authentication_classes = [OAuth2Authentication, authentication.SessionAuthentication]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['id', 'name', 'number']
-    search_fields = ['id', 'name', 'number']
+    search_fields = ['id', 'name', 'number', 'area_code__code']
     permission_classes = [permissions.IsAuthenticated]
-    pagination_class = pagination.PageNumberPagination
+    pagination_class = ContactsPagination
 
     def get_queryset(self):
         return self.queryset.filter(account=self.request.user)
