@@ -1,6 +1,7 @@
 version: '3.9'
 services:
-    app:
+    api:
+        container_name: phonebook-api
         build:
             target: ${DJANGO_ENV:-production}
             context: .
@@ -18,7 +19,7 @@ services:
             - PYTHONDONTWRITEBYTECODE=1
         restart: always
     db:
-        container_name: phonebook-postgres-db
+        container_name: phonebook-db
         image: 'postgres:16'
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
@@ -35,6 +36,14 @@ services:
             test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
             retries: 3
             timeout: 5s
+        restart: always
+    mailer:
+        container_name: phonebook-mailer
+        image: 'mailhog/mailhog:latest'
+        ports:
+            - '${MAILER_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - net
         restart: always
 networks:
     net:
