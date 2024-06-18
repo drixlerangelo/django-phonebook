@@ -1,13 +1,14 @@
+from django.http import HttpRequest, HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, viewsets, authentication, filters
 
 from api.v1.accounts.models import Account
-from app import settings
 from .models import AreaCode, Contact
 from .serializers import AreaCodeSerializer, ContactSerializer
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from .mixins import ContactsPagination
 from django.core.mail import send_mail
+import pandas as pd
 
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all().order_by('name')
@@ -58,6 +59,24 @@ class ContactViewSet(viewsets.ModelViewSet):
             recipient_list=[account.email],
             fail_silently=False,
         )
+
+    def list(self, request: HttpRequest, *args, **kwargs):
+        if request.query_params.get('type') == 'export':
+            queryset = self.filter_queryset(self.get_queryset())
+
+            # Convert the queryset to a DataFrame
+            df = pd.DataFrame.from_records(queryset.values('name', 'area_code__code', 'number', 'email', 'address'))
+
+            # Rename columns
+            df.columns = ['Contact Name', 'Area Code', 'Phone Number', 'Email', 'Address']
+
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=contacts.xlsx'
+            df.to_excel(response, index=False)
+
+            return response
+        else:
+            return super().list(request, *args, **kwargs)
 
 class AreaCodeListView(generics.ListAPIView):
     queryset = AreaCode.objects.all()
