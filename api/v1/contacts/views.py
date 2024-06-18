@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, permissions, viewsets, authentication, filters
+from rest_framework import generics, permissions, viewsets, authentication, filters, throttling
 
 from api.v1.accounts.models import Account
 from .models import AreaCode, Contact
@@ -20,6 +20,7 @@ class ContactViewSet(viewsets.ModelViewSet):
     search_fields = ['id', 'name', 'number', 'area_code__code']
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = ContactsPagination
+    throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
 
     def get_queryset(self):
         return self.queryset.filter(account=self.request.user)
@@ -83,3 +84,4 @@ class AreaCodeListView(generics.ListAPIView):
     serializer_class = AreaCodeSerializer
     authentication_classes = [OAuth2Authentication, authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
