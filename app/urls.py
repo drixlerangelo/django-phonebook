@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 import oauth2_provider.views as oauth2_views
 from app import settings
@@ -46,7 +46,18 @@ urlpatterns += [
         path('logout/', views.logout, name='account_logout'),
         path('signup/', views.signup, name='account_signup'),
         path('reauthenticate/', views.reauthenticate, name='account_reauthenticate'),
-        path('mfa/', include('allauth.mfa.urls'))
+        path('mfa/', include('allauth.mfa.urls')),
+        path('email/', views.email, name='account_email'),
+        path(
+            'confirm-email/',
+            views.email_verification_sent,
+            name='account_email_verification_sent',
+        ),
+        re_path(
+            r'^confirm-email/(?P<key>[-:\w]+)/$',
+            views.confirm_email,
+            name='account_confirm_email',
+        ),
     ])),
 
     # OAuth 2 endpoints:

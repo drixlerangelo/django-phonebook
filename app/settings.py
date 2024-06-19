@@ -208,7 +208,7 @@ ACCOUNT_FORMS = {
 }
 
 # to avoid sending
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%s',

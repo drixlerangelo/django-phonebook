@@ -1,7 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserChangeForm
 from allauth.account.forms import SignupForm
-
+from django.contrib.auth.forms import UserChangeForm
+from allauth.account.utils import send_email_confirmation
 from .models import Account
 
 
@@ -13,6 +13,11 @@ class AccountCreationForm(SignupForm):
     class Meta:
         model = Account
         fields = ['username', 'first_name', 'last_name', 'email']
+
+    def save(self, request):
+        user = super(AccountCreationForm, self).save(request)
+        send_email_confirmation(request, user, True, user.email)
+        return user
 
 
 class AccountChangeForm(UserChangeForm):
