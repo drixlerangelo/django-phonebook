@@ -3,6 +3,8 @@ from django.db import models
 from django.core.validators import EmailValidator
 
 from api.v1.accounts.models import Account
+from api.v1.contacts.validations import validate_number
+from core.models import SoftDeleteModel
 
 class Telecom(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)
@@ -23,11 +25,14 @@ class AreaCode(models.Model):
     def __str__(self):
         return self.code
 
-class Contact(models.Model):
+class Contact(SoftDeleteModel):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)
     name = models.CharField(max_length=255, blank=False)
     area_code = models.ForeignKey(AreaCode, on_delete=models.DO_NOTHING, blank=False)
-    number = models.CharField(max_length=8, blank=False)
+    number = models.CharField(
+        max_length=8,
+        blank=False,
+        validators=[validate_number])
     email = models.EmailField(
         validators=[EmailValidator()],
         blank=False

@@ -4,7 +4,7 @@ from .models import AreaCode, Contact
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ['uuid', 'name', 'area_code', 'number', 'email', 'address', 'url']
+        fields = ['id', 'uuid', 'name', 'area_code', 'number', 'email', 'address', 'url']
         read_only_fields = ['id', 'uuid']
 
     url = serializers.HyperlinkedIdentityField(

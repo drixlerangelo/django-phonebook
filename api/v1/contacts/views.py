@@ -23,7 +23,10 @@ class ContactViewSet(viewsets.ModelViewSet):
     throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
 
     def get_queryset(self):
-        return self.queryset.filter(account=self.request.user)
+        return self.queryset.filter(
+            account=self.request.user,
+            is_deleted=False,
+        )
 
     def perform_create(self, serializer: ContactSerializer):
         account: Account = self.request.user
