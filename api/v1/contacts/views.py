@@ -6,7 +6,7 @@ from api.v1.accounts.models import Account
 from .models import AreaCode, Contact
 from .serializers import AreaCodeSerializer, ContactSerializer
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
-from .mixins import ContactsPagination
+from core.mixins import BasePagination
 from django.core.mail import send_mail
 import pandas as pd
 
@@ -19,7 +19,7 @@ class ContactViewSet(viewsets.ModelViewSet):
     ordering_fields = ['id', 'name', 'number']
     search_fields = ['id', 'name', 'number', 'area_code__code']
     permission_classes = [permissions.IsAuthenticated]
-    pagination_class = ContactsPagination
+    pagination_class = BasePagination
     throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
 
     def get_queryset(self):
@@ -32,25 +32,9 @@ class ContactViewSet(viewsets.ModelViewSet):
         account: Account = self.request.user
         serializer.save(account=account)
 
-        send_mail(
-            'New Contact Created',
-            'A new contact has been created.',
-            from_email=None,
-            recipient_list=[account.email],
-            fail_silently=False,
-        )
-
     def perform_update(self, serializer):
         account: Account = self.request.user
         serializer.save(account=account)
-
-        send_mail(
-            'Contact Updated',
-            'A contact has been updated.',
-            from_email=None,
-            recipient_list=[account.email],
-            fail_silently=False,
-        )
 
     def perform_destroy(self, instance: Contact):
         account: Account = self.request.user

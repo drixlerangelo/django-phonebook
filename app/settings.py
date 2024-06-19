@@ -56,6 +56,8 @@ INSTALLED_APPS = [
 
     'api.v1.accounts',
     'api.v1.contacts',
+
+    'api.v1.contacts.signals.ContactConfig',
 ]
 
 MIDDLEWARE = [
