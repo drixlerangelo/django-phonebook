@@ -9,8 +9,8 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(AreaCode)
 class AreaCodeAdmin(admin.ModelAdmin):
-    list_display = ['uuid', 'code']
+    list_display = ['code']
 
 @admin.register(Telecom)
 class TelecomAdmin(admin.ModelAdmin):
-    list_display = ['uuid', 'name']
+    list_display = ['name']

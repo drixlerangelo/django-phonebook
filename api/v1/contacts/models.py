@@ -7,14 +7,12 @@ from api.v1.contacts.validations import validate_number
 from core.models import SoftDeleteModel
 
 class Telecom(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)
     name = models.CharField(max_length=128, blank=False)
 
     def __str__(self):
         return self.name
 
 class AreaCode(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=True)
     # On delete options: https://sentry.io/answers/django-on-delete/
     telecom = models.ForeignKey(Telecom, on_delete=models.DO_NOTHING)
     # 63 - country code; 9xx - mobile; 2x - landline; 32-88x - landline

@@ -21,7 +21,6 @@ class Migration(migrations.Migration):
             name='AreaCode',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('uuid', models.UUIDField(default=uuid.uuid4, unique=True)),
                 ('code', models.CharField(max_length=5, unique=True)),
             ],
         ),
@@ -29,7 +28,6 @@ class Migration(migrations.Migration):
             name='Telecom',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('uuid', models.UUIDField(default=uuid.uuid4, unique=True)),
                 ('name', models.CharField(max_length=128)),
             ],
         ),
