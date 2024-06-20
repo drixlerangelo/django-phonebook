@@ -45,6 +45,17 @@ services:
         networks:
             - net
         restart: always
+    websocket:
+        container_name: phonebook-websocket
+        image: quay.io/soketi/soketi:1.0-16-alpine
+        environment:
+            - SOKETI_DEBUG=1
+        ports:
+            - '${WS_PORT:-6001}:6001'
+
+        volumes:
+            - ./ws-config:/app/config.json
+        command: soketi start --config=/app/config.json
 networks:
     net:
         driver: bridge
