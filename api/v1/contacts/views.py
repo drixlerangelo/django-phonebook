@@ -7,7 +7,6 @@ from .models import AreaCode, Contact
 from .serializers import AreaCodeSerializer, ContactSerializer
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from core.mixins import BasePagination
-from django.core.mail import send_mail
 import pandas as pd
 
 class ContactViewSet(viewsets.ModelViewSet):
@@ -35,18 +34,6 @@ class ContactViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         account: Account = self.request.user
         serializer.save(account=account)
-
-    def perform_destroy(self, instance: Contact):
-        account: Account = self.request.user
-        instance.delete()
-
-        send_mail(
-            'Contact Deleted',
-            'A contact has been deleted.',
-            from_email=None,
-            recipient_list=[account.email],
-            fail_silently=False,
-        )
 
     def list(self, request: HttpRequest, *args, **kwargs):
         if request.query_params.get('type') == 'export':
