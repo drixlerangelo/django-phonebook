@@ -17,6 +17,7 @@ drf-spectacular = "^0.27.2"
 django-filter = "^24.2"
 pandas = "^2.2.2"
 openpyxl = "^3.1.4"
+pusher = "^3.3.2"
 
 
 [build-system]

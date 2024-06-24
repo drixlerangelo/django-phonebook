@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, viewsets, authentication, filters, throttling
 
@@ -59,3 +61,10 @@ class AreaCodeListView(generics.ListAPIView):
     authentication_classes = [OAuth2Authentication, authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
+
+@login_required
+def test(request: HttpRequest) -> HttpResponse:
+    """
+    Test the Contacts' experimental functionalities.
+    """
+    return render(request, 'test.html')

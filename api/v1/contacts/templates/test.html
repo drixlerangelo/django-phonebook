@@ -1,0 +1,56 @@
+{% load simple_tags %}
+<html>
+    <head>
+        <title>Test Page</title>
+    </head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.min.js"></script>
+    <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
+    <body>
+        Just chillin'
+    </body>
+    <script>
+        const USER_UUID = '{{ user.uuid }}';
+        const WSS_TYPE = '{% settings_value "WSS_TYPE" %}';
+        const WSS_CONFIG = WSS_TYPE === 'pusher' ? {
+            forceTLS: false,
+            encrypted: true,
+            disableStats: true,
+            enabledTransports: ['ws', 'wss'],
+            cluster: '',
+        } : {
+            wsHost: 'localhost',
+            wsPort: parseInt('{% settings_value "WSS_PORT" %}'),
+            forceTLS: false,
+            encrypted: true,
+            disableStats: true,
+            enabledTransports: ['ws', 'wss'],
+            cluster: '',
+        };
+
+        const pusher = new Pusher(
+            '{% settings_value "WSS_APP_KEY" %}',
+            WSS_CONFIG
+        );
+
+        // // Not needed, for now
+        // var socketId = null;
+        // pusher.connection.bind('connected', function() {
+        //     socketId = pusher.connection.socket_id;
+        // });
+
+        const AUTH_CHANNEL = pusher.subscribe('account-' + USER_UUID);
+
+        AUTH_CHANNEL.bind('contact-creation', function (params) {
+            console.log('Contact Created', params);
+        });
+
+        AUTH_CHANNEL.bind('contact-modification', function (params) {
+            console.log('Contact Modified', params);
+        });
+
+        AUTH_CHANNEL.bind('contact-deletion', function (params) {
+            console.log('Contact Deleted', params);
+        });
+    </script>
+</html>

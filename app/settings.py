@@ -247,3 +247,14 @@ elif EMAIL_ENCRYPTION == 'ssl':
     EMAIL_SSL_CERTFILE = os.getenv('MAILER_SSL_CERTFILE')
     EMAIL_SSL_KEYFILE = os.getenv('MAILER_SSL_KEYFILE')
 DEFAULT_FROM_EMAIL = os.getenv('MAILER_FROM_ADDRESS')
+
+WSS_TYPE = os.getenv('WSS_TYPE')
+WSS_APP_KEY = os.getenv('WSS_APP_KEY')
+WSS_APP_ID = os.getenv('WSS_APP_ID')
+WSS_APP_SECRET = os.getenv('WSS_APP_SECRET')
+if WSS_TYPE == 'pusher':
+    WSS_APP_CLUSTER =  os.getenv('WSS_APP_CLUSTER')
+else:
+    WSS_HOST = os.getenv('WSS_HOST')
+    WSS_PORT = os.getenv('WSS_PORT')
+
