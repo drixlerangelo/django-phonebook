@@ -58,6 +58,7 @@ ENV DJANGO_ENV=${DJANGO_ENV}
         build-essential \
         libpq-dev \
         postgresql \
+        zsh \
     # Cleaning cache:
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
@@ -70,3 +71,5 @@ RUN python -m pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+CMD [ "/bin/zsh" ]

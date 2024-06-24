@@ -1,4 +1,4 @@
-from django.apps import AppConfig
+from actstream import action
 from django.core.mail import send_mail
 from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
@@ -6,7 +6,7 @@ from django.db.models.signals import post_save, post_delete
 from core.mixins import AppBroadcaster
 
 @receiver([post_delete, post_save])
-def notify_owner(sender, instance, created: bool = None, *args, **kwargs):
+def notify_owner(sender, instance, created: bool | None = None, *args, **kwargs):
     broadcaster = AppBroadcaster()
 
     # Avoids circular import errors
@@ -20,6 +20,11 @@ def notify_owner(sender, instance, created: bool = None, *args, **kwargs):
                 {'uuid': str(instance.uuid)},
                 instance.account,
             )
+            action.send(
+                instance.account,
+                verb='deleted',
+                action_object=sender
+            )
         elif created:
             subject = 'New Contact Created'
             message = 'A new contact has been created.'
@@ -27,6 +32,11 @@ def notify_owner(sender, instance, created: bool = None, *args, **kwargs):
                 'contact-creation',
                 {'uuid': str(instance.uuid)},
                 instance.account,
+            )
+            action.send(
+                instance.account,
+                verb='created',
+                action_object=sender
             )
         else:
             subject = 'Contact Updated'
@@ -36,6 +46,11 @@ def notify_owner(sender, instance, created: bool = None, *args, **kwargs):
                 {'uuid': str(instance.uuid)},
                 instance.account,
             )
+            action.send(
+                instance.account,
+                verb='updated',
+                action_object=sender
+            )
         send_mail(
             subject,
             message,
@@ -43,10 +58,3 @@ def notify_owner(sender, instance, created: bool = None, *args, **kwargs):
             recipient_list=[instance.account.email],
             fail_silently=False,
         )
-
-class ContactConfig(AppConfig):
-    name = 'api.v1.contacts.signals'
-    verbose_name = 'Contact Config'
-
-    def ready(self):
-        from api.v1.contacts import signals

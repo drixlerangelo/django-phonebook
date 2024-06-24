@@ -78,4 +78,6 @@ urlpatterns += [
             path('', include('api.v1.contacts.urls')),
         ])),
     ])),
+
+    path('activity/', include('actstream.urls')),
 ]

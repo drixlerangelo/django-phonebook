@@ -35,6 +35,7 @@ ALLOWED_HOSTS = str(os.getenv('APP_HOSTS')).split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,8 +58,10 @@ INSTALLED_APPS = [
     'api.v1.accounts',
     'api.v1.contacts',
 
-    'api.v1.contacts.signals.ContactConfig',
+    'actstream',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -258,3 +261,7 @@ else:
     WSS_HOST = os.getenv('WSS_HOST')
     WSS_PORT = os.getenv('WSS_PORT')
 
+ACTSTREAM_SETTINGS = {
+    'FETCH_RELATIONS': True,
+    'USE_JSONFIELD': True,
+}
