@@ -23,7 +23,7 @@ def notify_owner(sender, instance, created: bool | None = None, *args, **kwargs)
             action.send(
                 instance.account,
                 verb='deleted',
-                action_object=sender
+                action_object=instance
             )
         elif created:
             subject = 'New Contact Created'
@@ -36,7 +36,7 @@ def notify_owner(sender, instance, created: bool | None = None, *args, **kwargs)
             action.send(
                 instance.account,
                 verb='created',
-                action_object=sender
+                action_object=instance
             )
         else:
             subject = 'Contact Updated'
@@ -49,7 +49,7 @@ def notify_owner(sender, instance, created: bool | None = None, *args, **kwargs)
             action.send(
                 instance.account,
                 verb='updated',
-                action_object=sender
+                action_object=instance
             )
         send_mail(
             subject,

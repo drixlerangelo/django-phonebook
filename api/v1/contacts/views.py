@@ -1,12 +1,13 @@
+from actstream.models import actor_stream
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, viewsets, authentication, filters, throttling
 
 from api.v1.accounts.models import Account
 from .models import AreaCode, Contact
-from .serializers import AreaCodeSerializer, ContactSerializer
+from .serializers import AreaCodeSerializer, ContactSerializer, ActionSerializer
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from core.mixins import BasePagination
 import pandas as pd
@@ -61,6 +62,30 @@ class AreaCodeListView(generics.ListAPIView):
     authentication_classes = [OAuth2Authentication, authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
+
+class ActivityListView(generics.ListAPIView):
+    serializer_class = ActionSerializer
+    authentication_classes = [OAuth2Authentication, authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    throttle_classes = [throttling.UserRateThrottle, throttling.AnonRateThrottle]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['timestamp']
+
+    def get_queryset(self):
+        # Get the stream of actions for the logged-in user
+        queryset = actor_stream(self.request.user)
+
+        # Get the contact's UUID from the query parameters
+        search_uuid = self.request.query_params.get('search')
+
+        if search_uuid:
+            # Get the specific contact
+            contact = get_object_or_404(Contact, uuid=search_uuid)
+
+            # Filter the actions for this contact
+            queryset = queryset.filter(action_object_object_id=contact.id)
+
+        return queryset
 
 @login_required
 def test(request: HttpRequest) -> HttpResponse:
