@@ -62,9 +62,26 @@ services:
         networks:
             - net
         command: soketi start
+    cache:
+        container_name: phonebook-cache
+        image: 'redis:alpine'
+        environment:
+            REDIS_PASSWORD: '${REDIS_PASSWORD}'
+        volumes:
+            - 'cache_storage:/data'
+        command: /bin/sh -c 'redis-server --appendonly yes --requirepass $${REDIS_PASSWORD}'
+        networks:
+            - net
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+        restart: always
 networks:
     net:
         driver: bridge
 volumes:
     db_storage:
+        driver: local
+    cache_storage:
         driver: local
