@@ -59,6 +59,7 @@ ENV DJANGO_ENV=${DJANGO_ENV}
         libpq-dev \
         postgresql \
         zsh \
+        supervisor \
     # Cleaning cache:
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
@@ -72,4 +73,9 @@ RUN python -m pip install -r requirements.txt
 # copy project
 COPY . .
 
-CMD [ "/bin/zsh" ]
+# setup supervisor
+RUN mkdir -p /app/logs
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod a+x /app/entrypoint.sh
+
+CMD ["/app/entrypoint.sh" ]

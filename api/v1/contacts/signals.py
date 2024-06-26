@@ -1,9 +1,9 @@
 from actstream import action
-from django.core.mail import send_mail
 from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 
 from core.mixins import AppBroadcaster
+from core.tasks import enqueue_mail
 
 @receiver([post_delete, post_save])
 def notify_owner(sender, instance, created: bool | None = None, *args, **kwargs):
@@ -51,10 +51,4 @@ def notify_owner(sender, instance, created: bool | None = None, *args, **kwargs)
                 verb='updated',
                 action_object=instance
             )
-        send_mail(
-            subject,
-            message,
-            from_email=None,
-            recipient_list=[instance.account.email],
-            fail_silently=False,
-        )
+        enqueue_mail.delay(subject, message, [instance.account.email])
