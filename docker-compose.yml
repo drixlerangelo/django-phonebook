@@ -3,11 +3,11 @@ services:
     api:
         container_name: phonebook-api
         build:
-            target: ${DJANGO_ENV:-production}
+            target: ${APP_ENV:-production}
             context: .
             dockerfile: Dockerfile
             args:
-                - DJANGO_ENV=${DJANGO_ENV:-production}
+                - DJANGO_ENV=${APP_ENV:-production}
         ports:
             - '${APP_PORT:-8000}:80'
         volumes:
@@ -43,7 +43,7 @@ services:
         restart: always
     mailer:
         container_name: phonebook-mailer
-        image: 'mailhog/mailhog:latest'
+        image: 'axllent/mailpit:v1.18'
         ports:
             - '${MAILER_DASHBOARD_PORT:-8025}:8025'
         networks:
@@ -62,9 +62,10 @@ services:
         networks:
             - net
         command: soketi start
+        restart: always
     cache:
         container_name: phonebook-cache
-        image: 'redis:alpine'
+        image: 'redis:alpine3.20'
         environment:
             REDIS_PASSWORD: '${CACHE_PASSWORD}'
         volumes:

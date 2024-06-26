@@ -28,6 +28,9 @@ RUN apt-get update \
         libpq-dev \
         wget \
         postgresql \
+        zsh \
+        supervisor \
+        iputils-ping \
     # Cleaning cache:
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
     && pip install "poetry==$POETRY_VERSION" && poetry --version
@@ -39,10 +42,19 @@ COPY pyproject.toml poetry.lock /app/
 # Install dependencies:
 RUN poetry export -f requirements.txt --output requirements.txt
 
+
 FROM poetry-builder AS development
 RUN poetry install
+
 # copy project
 COPY . .
+
+# setup supervisor
+RUN mkdir -p /app/logs
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod a+x /app/entrypoint.sh
+
+CMD ["/app/entrypoint.sh" ]
 
 
 FROM python:3.11-slim AS production
@@ -58,7 +70,6 @@ ENV DJANGO_ENV=${DJANGO_ENV}
         build-essential \
         libpq-dev \
         postgresql \
-        zsh \
         supervisor \
     # Cleaning cache:
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*

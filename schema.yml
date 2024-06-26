@@ -4,6 +4,35 @@ info:
   version: 1.0.0
   description: A phonebook created using Django.
 paths:
+  /api/v1/activities/:
+    get:
+      operationId: api_v1_activities_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Action'
+          description: ''
   /api/v1/area-codes/:
     get:
       operationId: api_v1_area_codes_list
@@ -11,7 +40,6 @@ paths:
       - api
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '200':
           content:
@@ -24,19 +52,41 @@ paths:
   /api/v1/contacts/:
     get:
       operationId: api_v1_contacts_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       tags:
       - api
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Contact'
+                $ref: '#/components/schemas/PaginatedContactList'
           description: ''
     post:
       operationId: api_v1_contacts_create
@@ -56,7 +106,6 @@ paths:
         required: true
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '201':
           content:
@@ -78,7 +127,6 @@ paths:
       - api
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '200':
           content:
@@ -111,7 +159,6 @@ paths:
         required: true
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '200':
           content:
@@ -143,7 +190,6 @@ paths:
               $ref: '#/components/schemas/PatchedContact'
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '200':
           content:
@@ -164,12 +210,35 @@ paths:
       - api
       security:
       - cookieAuth: []
-      - basicAuth: []
       responses:
         '204':
           description: No response body
 components:
   schemas:
+    Action:
+      type: object
+      properties:
+        verb:
+          type: string
+          maxLength: 255
+        actor:
+          type: string
+          readOnly: true
+        action_object:
+          type: string
+          readOnly: true
+        timestamp:
+          type: string
+          format: date-time
+        __str__:
+          type: string
+          readOnly: true
+          title: '  str  '
+      required:
+      - __str__
+      - action_object
+      - actor
+      - verb
     AreaCode:
       type: object
       properties:
@@ -189,6 +258,9 @@ components:
     Contact:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         uuid:
           type: string
           format: uuid
@@ -215,13 +287,40 @@ components:
       - address
       - area_code
       - email
+      - id
       - name
       - number
       - url
       - uuid
+    PaginatedContactList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
     PatchedContact:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         uuid:
           type: string
           format: uuid
@@ -245,10 +344,10 @@ components:
           format: uri
           readOnly: true
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
     cookieAuth:
       type: apiKey
       in: cookie
       name: sessionid
+    oauth2:
+      type: oauth2
+      flows: {}
