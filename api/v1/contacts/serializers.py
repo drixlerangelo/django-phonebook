@@ -13,6 +13,29 @@ class ContactSerializer(serializers.ModelSerializer):
         lookup_field='uuid'
     )
 
+    def validate(self, data):
+        area_code = data.get('area_code')
+        number = data.get('number')
+        account = self.context['request'].user
+
+        # Check if this is an update operation
+        if self.instance:
+            has_same_area_code = self.instance.area_code == area_code
+            has_same_number = self.instance.number == number
+
+            # If the area_code and number are not being changed, skip the duplicate check
+            if has_same_area_code and has_same_number:
+                return data
+
+        # Check for duplicates only within the contacts of the currently logged-in user
+        if Contact.objects.filter(account=account, area_code=area_code, number=number).exists():
+            raise serializers.ValidationError({
+                'area_code': 'A contact with this area code and number already exists.',
+                'number': 'A contact with this area code and number already exists.',
+            })
+
+        return data
+
 class AreaCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AreaCode
