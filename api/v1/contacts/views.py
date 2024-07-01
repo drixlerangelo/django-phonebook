@@ -43,7 +43,16 @@ class ContactViewSet(viewsets.ModelViewSet):
             queryset = self.filter_queryset(self.get_queryset())
 
             # Convert the queryset to a DataFrame
-            df = pd.DataFrame.from_records(queryset.values('name', 'area_code__code', 'number', 'email', 'address'))
+            if queryset.count() > 0:
+                df = pd.DataFrame.from_records(queryset.values('name', 'area_code__code', 'number', 'email', 'address'))
+            else:
+                df = pd.DataFrame({
+                    'name': [],
+                    'area_code__code': [],
+                    'number': [],
+                    'email': [],
+                    'address': [],
+                })
 
             # Rename columns
             df.columns = ['Contact Name', 'Area Code', 'Phone Number', 'Email', 'Address']
