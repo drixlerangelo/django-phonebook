@@ -110,15 +110,30 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+CONNECTORS = {
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_DATABASE'),
+        'USER': os.getenv('DB_USERNAME'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+    },
+    'postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv('DB_DATABASE'),
         'USER': os.getenv('DB_USERNAME'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
-        'PORT': 5432,
+        'PORT': os.getenv('DB_PORT'),
     },
+}
+
+CONNECTOR = os.getenv('DB_CONNECTION') if os.getenv('DB_CONNECTION') in CONNECTORS.keys() else 'mysql'
+CONNECTOR = CONNECTORS[CONNECTOR]
+
+DATABASES = {
+    'default': CONNECTOR,
 }
 
 

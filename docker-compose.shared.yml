@@ -1,0 +1,23 @@
+services:
+    api:
+        container_name: phonebook.localhost
+        build:
+            target: ${APP_ENV:-development}
+            context: .
+            dockerfile: Dockerfile
+            args:
+                - DJANGO_ENV=${APP_ENV:-development}
+        ports:
+            - '${APP_PORT:-8000}:80'
+        volumes:
+            - '.:/app'
+        networks:
+            - shared
+        environment:
+            - PYTHONDONTWRITEBYTECODE=1
+            - VIRTUAL_HOST=phonebook.localhost
+        restart: always
+networks:
+    shared:
+        external: true
+        name: shared

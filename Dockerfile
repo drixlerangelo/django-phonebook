@@ -28,6 +28,8 @@ RUN apt-get update \
         libpq-dev \
         wget \
         postgresql \
+        pkg-config \
+        default-libmysqlclient-dev \
         zsh \
         supervisor \
         iputils-ping \
