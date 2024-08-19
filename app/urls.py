@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from oauth2_provider.urls import management_urlpatterns
 import oauth2_provider.views as oauth2_views
 from app import settings
 from allauth.account import views
@@ -32,6 +33,29 @@ if settings.DEBUG:
         # Download the schema
         path('schema/', SpectacularAPIView.as_view(), name='schema'),
     ]
+else:
+    management_urlpatterns = []
+
+account_paths = [
+    path('login/', views.login, name='account_login'),
+    path('logout/', views.logout, name='account_logout'),
+    path('signup/', views.signup, name='account_signup'),
+    path('reauthenticate/', views.reauthenticate, name='account_reauthenticate'),
+    path('email/', views.email, name='account_email'),
+    path(
+        'confirm-email/',
+        views.email_verification_sent,
+        name='account_email_verification_sent',
+    ),
+    re_path(
+        r'^confirm-email/(?P<key>[-:\w]+)/$',
+        views.confirm_email,
+        name='account_confirm_email',
+    ),
+]
+
+if settings.MFA_ENABLED:
+    account_paths += path('mfa/', include('allauth.mfa.urls'))
 
 urlpatterns += [
     # Index page
@@ -41,24 +65,7 @@ urlpatterns += [
     path('swagger/', SpectacularSwaggerView.as_view(), name='swagger-ui'),
 
     # Auth endpoints
-    path('accounts/', include([
-        path('login/', views.login, name='account_login'),
-        path('logout/', views.logout, name='account_logout'),
-        path('signup/', views.signup, name='account_signup'),
-        path('reauthenticate/', views.reauthenticate, name='account_reauthenticate'),
-        path('mfa/', include('allauth.mfa.urls')),
-        path('email/', views.email, name='account_email'),
-        path(
-            'confirm-email/',
-            views.email_verification_sent,
-            name='account_email_verification_sent',
-        ),
-        re_path(
-            r'^confirm-email/(?P<key>[-:\w]+)/$',
-            views.confirm_email,
-            name='account_confirm_email',
-        ),
-    ])),
+    path('accounts/', include(account_paths)),
 
     # OAuth 2 endpoints:
     # need to pass in a tuple of the endpoints as well as the app's name
@@ -68,7 +75,7 @@ urlpatterns += [
             path('authorize/', oauth2_views.AuthorizationView.as_view(), name='authorize'),
             path('token/', oauth2_views.TokenView.as_view(), name='token'),
             path('revoke-token/', oauth2_views.RevokeTokenView.as_view(), name='revoke-token'),
-        ], 'oauth2_provider'),
+        ] + management_urlpatterns, 'oauth2_provider'),
         namespace='oauth2_provider'
     )),
 

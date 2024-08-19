@@ -16,6 +16,7 @@ services:
             - net
         environment:
             - PYTHONDONTWRITEBYTECODE=1
+            - APP_ENV=${APP_ENV:-production}
         depends_on:
             - db
             - mailer

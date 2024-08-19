@@ -6,8 +6,14 @@ cd /app
 sed -i "s|'django.contrib.admin'|#'django.contrib.admin'|g" app/settings.py
 sed -i "s|path('admin/', admin.site.urls)|#path('admin/', admin.site.urls)|g" app/urls.py
 python manage.py migrate
+
 sed -i "s|#'django.contrib.admin'|'django.contrib.admin'|g" app/settings.py
 sed -i "s|#path('admin/', admin.site.urls)|path('admin/', admin.site.urls)|g" app/urls.py
 python manage.py migrate
+
+if [ $APP_ENV != 'production' ]; then
+    python manage.py loaddata accounts emailaddresses applications
+fi
+
 python manage.py loaddata telecoms area_codes
 supervisord -c /app/supervisord.conf

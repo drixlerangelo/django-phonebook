@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.mfa',
 
     'rest_framework',
 
@@ -198,6 +197,12 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 ACCOUNT_EMAIL_REQUIRED = True
+
+# Determines if MFA should be used
+MFA_ENABLED = os.getenv('APP_MFA') == '1'
+
+if MFA_ENABLED:
+    INSTALLED_APPS += 'allauth.mfa'
 
 # Specifies the adapter class to use, allowing you to alter certain default behaviour.
 MFA_ADAPTER = "allauth.mfa.adapter.DefaultMFAAdapter"

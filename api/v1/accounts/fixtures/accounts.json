@@ -1,0 +1,18 @@
+[
+    {
+        "model": "accounts.account",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$xJrRNQFE2jqMoolEkFKkCy$gq26yy5XE5CdvzD6gzk9Nrz1mgrgzcH8VKtclCBF8i0=",
+            "is_superuser": true,
+            "uuid": "fd76e39d-506c-40c1-a947-d352209c4df3",
+            "email": "test.user@example.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-08-19T09:22:33.541Z",
+            "first_name": "Test",
+            "last_name": "User",
+            "username": "testuser"
+        }
+    }
+]
