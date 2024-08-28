@@ -5,7 +5,7 @@
         "fields": {
             "client_id": "phonebook-test",
             "user": 1,
-            "redirect_uris": "http://phonebook-app.localhost/callback",
+            "redirect_uris": "http://phonebook-app.localhost/accounts/callback",
             "client_type": "public",
             "authorization_grant_type": "authorization-code",
             "client_secret": "pbkdf2_sha256$720000$baHw0eIN4E0PjpsOY7p1sL$ZJBr9S5lPB8VHi0uHgCEgSMYC/qMKYTYOrKQ6+SJrg8=",
